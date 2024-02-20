@@ -1,7 +1,10 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Mensaje from '../componets/Alertas/Mensaje';
+import ModalTratamiento from '../componets/Modals/ModalTratamiento';
+import TratamientosContext from '../context/TratamientosProvider';
+
 
 const Visualizar = () => {
     const { id } = useParams()
@@ -13,6 +16,7 @@ const Visualizar = () => {
 			nuevaFecha.setMinutes(nuevaFecha.getMinutes() + nuevaFecha.getTimezoneOffset())
         return new Intl.DateTimeFormat('es-EC',{dateStyle:'long'}).format(nuevaFecha)
     }
+    const {modal, handleModal, tratamientos, setTratamientos} = useContext(TratamientosContext)
 
     useEffect(() => {
         const consultarPaciente = async () => {
@@ -36,12 +40,9 @@ const Visualizar = () => {
 
     return (
         <>
+        
             <div>
-                <h1 className='font-black text-4xl text-gray-500'>Visualizar Paciente</h1>
-                <hr className='my-4' />
-                <p className='mb-8'>Este submódulo te permite visualizar los datos del paciente</p>
-            </div>
-            <div>
+            <h1 className='font-black text-4xl text-gray-500'>Visualizar Paciente</h1>
                 {
                     Object.keys(paciente).length != 0 ?
                         (
@@ -82,7 +83,17 @@ const Visualizar = () => {
                                 </div>
                             </div>
                             <hr className='my-4' />
-                            <p className='mb-8'>Este submódulo te permite visualizar los tratamientos del paciente</p>
+                            <div className='flex justify-between items-center'>
+                            <p>Este submódulo te permite visualizar los tratamientos del paciente</p>
+                            <button className="px-5 py-2 bg-green-800 text-white rounded-lg hover:bg-green-700" onClick={handleModal}>Registrar</button>
+                            </div>
+                            {modal && (<ModalTratamiento idPaciente={paciente._id}/>)}
+                                {
+                                    tratamientos.length == 0 ?
+                                        <Mensaje tipo={'active'}>{'No existes registros'}</Mensaje>
+                                        :
+                                        <TablaTratamientos tratamientos={tratamientos}/>
+                                }
                             </>
                         )
                         :
@@ -91,6 +102,7 @@ const Visualizar = () => {
                         )
                 }
             </div>
+            
         </>
 
     )
