@@ -12,11 +12,11 @@ export const NotFound = () => {
 
             <div className="flex flex-col items-center justify-center">
                 
-                <p className="text-3xl md:text-4xl lg:text-5xl text-gray-800 mt-12">Page Not Found</p>
+                <p className="text-3xl md:text-4xl lg:text-5xl text-gray-800 mt-12">Página no encotrada</p>
                 
-                <p className="md:text-lg lg:text-xl text-gray-600 mt-8">Sorry, the page you are looking for could not be found.</p>
+                <p className="md:text-lg lg:text-xl text-gray-600 mt-8">Lo lamentamos, la página a la que ingreso no fue encontrada</p>
                 
-                <Link to="/login" className="p-3 m-5 w-full text-center  bg-gray-600 text-slate-300  border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Login</Link>
+                <Link to="/login" className="p-3 m-5 w-full text-center  bg-gray-600 text-slate-300  border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Ingresar</Link>
 
             </div>
         </div>

@@ -6,8 +6,6 @@ import axios from 'axios';
 import Mensaje from '../componets/Alertas/Mensaje';
 
 
-    
-
 export const Confirmar = () => {
     const { token } = useParams();
     const [mensaje, setMensaje] = useState({})
@@ -23,6 +21,7 @@ export const Confirmar = () => {
     useEffect(() => {
         verifyToken()
     }, [])
+
     return (
         
         <div className="flex flex-col items-center justify-center">

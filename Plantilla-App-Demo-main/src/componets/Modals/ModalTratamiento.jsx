@@ -64,6 +64,9 @@ const ModalTratamiento = ({ idPaciente }) => {
                     className='text-white uppercase font-bold text-sm'>Prioridad: </label>
                     <select
                         id='prioridad'
+                        name='prioridad'
+                        value={form.prioridad}
+                        onChange={handleChange}
                         className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'>
                         <option value="">--- Seleccionar ---</option>
                         <option value="Baja">Baja</option>

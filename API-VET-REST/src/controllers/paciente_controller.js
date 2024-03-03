@@ -20,6 +20,7 @@ const loginPaciente = async(req,res)=>{
         emailP,
         celular,
         convencional,
+        rol:"paciente",
         _id
     })
 }
@@ -36,8 +37,14 @@ const perfilPaciente =(req,res)=>{
 }
 //listar paciente
 const listarPacientes = async (req,res)=>{
-    const pacientes = await Paciente.find({estado:true}).where('veterinario').equals(req.veterinarioBDD).select("-salida -createdAt -updatedAt -__v -password").populate('veterinario','_id nombre apellido')
-    res.status(200).json(pacientes)
+    if (req.pacienteBDD && "propietario" in req.pacienteBDD){
+        const pacientes = await Paciente.find(req.pacienteBDD._id).select("-salida -createdAt -updatedAt -__v").populate('veterinario','_id nombre apellido')
+        res.status(200).json(pacientes)
+    }
+    else{
+        const pacientes = await Paciente.find({estado:true}).where('veterinario').equals(req.veterinarioBDD).select("-salida -createdAt -updatedAt -__v").populate('veterinario','_id nombre apellido')
+        res.status(200).json(pacientes)
+    }
 }
 //detalle del paciente
 const detallePaciente = async(req,res)=>{

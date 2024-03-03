@@ -17,6 +17,7 @@ const Dashboard = () => {
 
                 <img src="https://cdn-icons-png.flaticon.com/512/2138/2138508.png" alt="img-client" className="m-auto mt-8 p-1 border-2 border-slate-500 rounded-full" width={120} height={120} />
                 <p className='text-slate-400 text-center my-4 text-sm'> <span className='bg-green-600 w-3 h-3 inline-block rounded-full'></span> Bienvenido - {auth?.nombre}</p>
+                <p className='text-slate-400 text-center my-4 text-sm'> Rol - {auth?.rol}</p>
                 <hr className="mt-5 border-slate-500" />
 
                 <ul className="mt-5">
@@ -31,6 +32,10 @@ const Dashboard = () => {
 
                     <li className="text-center">
                         <Link to='/dashboard/crear' className={`${urlActual === '/dashboard/crear' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md text-center' : 'text-slate-600'} text-xl block mt-2 hover:text-slate-600`}>Crear</Link>
+                    </li>
+
+                    <li className="text-center">
+                        <Link to='/dashboard/chat' className={`${urlActual === '/dashboard/chat' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md text-center' : 'text-slate-600'} text-xl block mt-2 hover:text-slate-600`}>Chat</Link>
                     </li>
                 </ul>
 

@@ -3,11 +3,14 @@ import { useContext, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import Mensaje from "./Alertas/Mensaje";
+import { useForm } from 'react-hook-form'
 
 export const Formulario = ({paciente}) => {
-
+    
     const navigate = useNavigate()
     const [mensaje, setMensaje] = useState({})
+    const {register, handleSubmit, formState:{errors}} = useForm()
+
     const [form, setform] = useState({
         nombre: paciente?.nombre ??"",
         propietario: paciente?.propietario ??"",
@@ -24,8 +27,8 @@ export const Formulario = ({paciente}) => {
         })
     }
 
-    const handleSubmit = async(e) => { 
-        e.preventDefault()
+    const onSubmit = async(e) => { 
+        //e.preventDefault()
         if (paciente?._id) {
             const token = localStorage.getItem('token')
             const url = `${import.meta.env.VITE_BACKEND_URL}/paciente/actualizar/${paciente?._id}`
@@ -65,7 +68,7 @@ export const Formulario = ({paciente}) => {
 
     return (
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
             <div>
                 <label
@@ -79,7 +82,9 @@ export const Formulario = ({paciente}) => {
                     name='nombre'
                     value = {form.nombre}
                     onChange={handleChange}
+                    {...register("nombre", {required: true})}
                 />
+                {errors.nombre?.type === 'required' && <p className="text-gray-400 my-2 text-xs">Campo requerido</p>}
             </div>
             <div>
                 <label
@@ -93,7 +98,9 @@ export const Formulario = ({paciente}) => {
                     name='propietario'
                     value = {form.propietario}
                     onChange={handleChange}
+                    {...register("propietario", {required: true})}
                 />
+                {errors.propietario?.type === 'required' && <p className="text-gray-400 my-2 text-xs">Campo requerido</p>}
             </div>
             <div>
                 <label
@@ -107,7 +114,9 @@ export const Formulario = ({paciente}) => {
                     name='email'
                     value={form.email}
                     onChange={handleChange}
+                    {...register("email", {required: true})}
                 />
+                {errors.email?.type === 'required' && <p className="text-gray-400 my-2 text-xs">Campo requerido</p>}
             </div>
             <div>
                 <label
@@ -121,7 +130,9 @@ export const Formulario = ({paciente}) => {
                     name='celular'
                     value={form.celular}
                     onChange={handleChange}
+                    {...register("celular", {required: true})}
                 />
+                {errors.celular?.type === 'required' && <p className="text-gray-400 my-2 text-xs">Campo requerido</p>}
             </div>
             <div>
                 <label
@@ -136,6 +147,7 @@ export const Formulario = ({paciente}) => {
                     value = {form.convencional}
                     onChange={handleChange}
                 />
+                
             </div>
             <div>
                 <label
@@ -163,7 +175,9 @@ export const Formulario = ({paciente}) => {
                     name='sintomas'
                     value = {form.sintomas}
                     onChange={handleChange}
+                    {...register("sintomas", {required: true})}
                 />
+                {errors.sintomas?.type === 'required' && <p className="text-gray-400 my-2 text-xs">Campo requerido</p>}
             </div>
 
             <input

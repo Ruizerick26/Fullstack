@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext,useEffect, useState } from "react";
 import { MdDeleteForever, MdNoteAdd, MdInfo } from "react-icons/md";
 import axios from 'axios';
 import Mensaje from "./Alertas/Mensaje";
 import { useNavigate } from 'react-router-dom'
+import AuthContext from "../context/AuthProvider";
 
 const Tabla = () => {
 
     const [pacientes, setPacientes] = useState([])
+    const {auth} = useContext(AuthContext)
     const navigate = useNavigate()
 
     const listarPacientes = async () => {
@@ -86,9 +88,21 @@ const Tabla = () => {
                                         <td className='py-2 text-center'>
                                             <MdNoteAdd className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2 " onClick={() => navigate(`/dashboard/visualizar/${paciente._id}`)} />
 
-                                            <MdInfo className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" onClick={() => navigate(`/dashboard/actualizar/${paciente._id}`)}/>
+                                            {
+                                                auth.rol === "veterinario" &&
+                                                (
+                                                    <>
+                                                    <MdInfo className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" 
+                                                    onClick={() => navigate(`/dashboard/actualizar/${paciente._id}`)} 
+                                                    />
+                                        
+                                                    <MdDeleteForever className="h-7 w-7 text-red-900 cursor-pointer inline-block" 
+                                                    onClick={() => { handleDelete(paciente._id) }}
+                                                    />
+                                                    </>
+                                                )
+                                            }
 
-                                            <MdDeleteForever className="h-7 w-7 text-red-900 cursor-pointer inline-block" onClick={() => { handleDelete(paciente._id) }} />
                                         </td>
                                     </tr>
                                 ))

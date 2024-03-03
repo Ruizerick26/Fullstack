@@ -24,7 +24,8 @@ const login = async(req,res)=>{
         direccion,
         telefono,
         _id,
-        email:veterinarioBDD.email
+        email:veterinarioBDD.email,
+        rol:"veterinario"
     })
 }
 

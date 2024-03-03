@@ -15,8 +15,9 @@ import {
 } from "../controllers/veterinario_controller.js";
 import { validacionVeterinario } from '../middlewares/validacionVeterinario.js';
 
-
+//rutas
 const router = Router()
+
 
 //publicas 
 router.post("/login", login);
